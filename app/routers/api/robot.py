@@ -1,7 +1,6 @@
 from fastapi import APIRouter, HTTPException
 
-from app import schemas, usecases
-from app.routers import deps
+from app import deps, schemas, usecases
 
 router = APIRouter()
 

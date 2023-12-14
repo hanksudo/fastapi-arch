@@ -1,16 +1,19 @@
 from contextlib import asynccontextmanager
 
 from fastapi import FastAPI
-from infra.database import init_db
 
 from app import routers
-from app.core import seed
+from app.core import Scheduler, Seeder
+from app.deps import database
 
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    init_db()
-    seed.seed()
+    database.init_db()
+
+    with database.get_db() as db:
+        Seeder(db).seed()
+        Scheduler(db).start()
     yield
 
 
