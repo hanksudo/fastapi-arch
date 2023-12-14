@@ -1,15 +1,13 @@
-from app import models
+from infra.database import get_db
 
-# from app.deps import DatabaseDep
-from app.deps import get_db
+from app import models
 
 
 def seed():
-    db = next(get_db())
+    with get_db() as db:
+        if db.query(models.Robot).count() > 0:
+            print("skip seed")
+            return
 
-    if db.query(models.Robot.id).count() > 0:
-        print("skip seed")
-        return
-
-    db.add(models.Robot(name="R2D2"))
-    db.commit()
+        db.add(models.Robot(name="R2D2"))
+        db.commit()

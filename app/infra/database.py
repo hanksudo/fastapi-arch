@@ -1,4 +1,5 @@
 from collections.abc import Generator
+from contextlib import contextmanager
 
 from sqlalchemy import create_engine
 from sqlalchemy.orm import DeclarativeBase, Session, sessionmaker
@@ -18,9 +19,15 @@ def init_db():
     Base.metadata.create_all(bind=engine)
 
 
+@contextmanager
 def get_db() -> Generator[Session, None, None]:
     db = SessionLocal()
     try:
         yield db
     finally:
         db.close()
+
+
+def get_db_deps() -> Generator[Session, None, None]:
+    with get_db() as db:
+        yield db

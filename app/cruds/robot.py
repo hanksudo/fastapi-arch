@@ -1,10 +1,10 @@
 from app import models, schemas
 
-from .base import CRUDBase
+from .base import BaseCRUD
 
 
-class CRUDRobot(CRUDBase[models.Robot, schemas.RobotCreate, schemas.RobotUpdate]):
+class RobotCRUD(BaseCRUD[models.Robot, schemas.RobotCreate, schemas.RobotUpdate]):
     pass
 
 
-robot = CRUDRobot(models.Robot)
+robot = RobotCRUD(models.Robot)
