@@ -1,7 +1,11 @@
+import asyncio
+
+from apscheduler.executors.asyncio import AsyncIOExecutor  # type: ignore
+from apscheduler.executors.pool import ThreadPoolExecutor  # type: ignore
 from apscheduler.schedulers.background import BackgroundScheduler  # type: ignore
 from sqlalchemy.orm import Session
 
-from app import schemas, usecases
+from app import deps, schemas, usecases
 
 
 class Scheduler:
@@ -9,8 +13,15 @@ class Scheduler:
         self.db = db
 
     def start(self):
-        scheduler = BackgroundScheduler()
-        scheduler.add_job(self._run, "interval", seconds=1)  # type: ignore
+        job_defaults = {"coalesce": True, "max_instances": 1}
+        executors = {"default": ThreadPoolExecutor(), "asyncio": AsyncIOExecutor()}
+        scheduler = BackgroundScheduler(
+            timezone="Asia/Tokyo", job_defaults=job_defaults, executors=executors
+        )
+
+        scheduler._eventloop = asyncio.get_event_loop()
+        scheduler.add_job(self._run, "interval", seconds=10)  # type: ignore
+        scheduler.add_job(self._send_message, "interval", seconds=1, executor="asyncio")  # type: ignore
         scheduler.start()  # type: ignore
 
     def _run(self):
@@ -19,3 +30,6 @@ class Scheduler:
         if robot:
             print(robot.id)
             print(schemas.RobotResponse.model_validate(robot))
+
+    async def _send_message(self):
+        await deps.notifier.send_message("test")

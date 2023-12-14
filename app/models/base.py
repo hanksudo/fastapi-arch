@@ -1,7 +1,11 @@
-from infra.database import Base
 from sqlalchemy import Column, Integer
 from sqlalchemy.dialects.sqlite import TIMESTAMP as Timestamp
+from sqlalchemy.orm import DeclarativeBase
 from sqlalchemy.sql import func
+
+
+class Base(DeclarativeBase):
+    pass
 
 
 class BaseModel(Base):

@@ -1,12 +1,9 @@
 from collections.abc import Generator
 from contextlib import contextmanager
+from typing import Any
 
 from sqlalchemy import create_engine
-from sqlalchemy.orm import DeclarativeBase, Session, scoped_session, sessionmaker
-
-
-class Base(DeclarativeBase):
-    pass
+from sqlalchemy.orm import Session, scoped_session, sessionmaker
 
 
 class DatabaseManager:
@@ -16,7 +13,7 @@ class DatabaseManager:
             sessionmaker(autocommit=False, autoflush=False, bind=self._engine)
         )
 
-    def init_db(self) -> None:
+    def init_db(self, Base: Any) -> None:
         Base.metadata.create_all(bind=self._engine)
 
     @contextmanager
