@@ -1,3 +1,3 @@
-from .robot import RobotResponse
+from .robot import RobotCreate, RobotResponse, RobotUpdate
 
-__all__ = ["RobotResponse"]
+__all__ = ["RobotResponse", "RobotCreate", "RobotUpdate"]

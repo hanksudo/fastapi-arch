@@ -1,15 +1,14 @@
 from infra.database import Base
-from sqlalchemy import Column, Field, text
+from sqlalchemy import Column, Integer
 from sqlalchemy.dialects.sqlite import TIMESTAMP as Timestamp
+from sqlalchemy.sql import func
 
 
 class BaseModel(Base):
-    id: int | None = Field(default=None, primary_key=True)
-    created_at = Column(
-        Timestamp, nullable=False, server_default=text("current_timestamp")
-    )
+    __abstract__ = True
+
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    created_at = Column(Timestamp, nullable=False, server_default=func.now())
     updated_at = Column(
-        Timestamp,
-        nullable=False,
-        server_default=text("current_timestamp on update current_timestamp"),
+        Timestamp, nullable=False, server_default=func.now(), onupdate=func.now()
     )
