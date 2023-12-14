@@ -1,0 +1,17 @@
+[tool.poetry]
+name = "fastapi-arch"
+version = "0.1.0"
+description = ""
+authors = ["Hank Wang <467745+hanksudo@users.noreply.github.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+fastapi = "^0.105.0"
+
+[tool.poetry.group.dev.dependencies]
+ruff = "^0.1.8"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
