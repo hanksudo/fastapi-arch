@@ -1,11 +1,10 @@
 from typing import Annotated
 
 from fastapi import Depends
-from infra.database import DatabaseManager
-from infra.notifier import Notifier
+from infrastructure.database import DatabaseManager
+from infrastructure.notifier import Notifier
+from internal.core import config
 from sqlalchemy.orm import Session
-
-from app.core import config
 
 database = DatabaseManager(config.DATABASE_URL)
 notifier = Notifier()

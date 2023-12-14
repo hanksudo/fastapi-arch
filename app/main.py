@@ -1,11 +1,10 @@
 from contextlib import asynccontextmanager
 
 from fastapi import FastAPI
-
-from app import routers
-from app.core import Scheduler, Seeder
-from app.deps import database
-from app.models import Base
+from internal import routers
+from internal.core import Scheduler, Seeder
+from internal.deps import database
+from internal.models import Base
 
 
 @asynccontextmanager

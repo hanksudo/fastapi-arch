@@ -1,4 +1,4 @@
-from app import models, schemas
+from internal import models, schemas
 
 from .base import BaseCRUD
 

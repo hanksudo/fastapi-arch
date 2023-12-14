@@ -3,9 +3,8 @@ import asyncio
 from apscheduler.executors.asyncio import AsyncIOExecutor  # type: ignore
 from apscheduler.executors.pool import ThreadPoolExecutor  # type: ignore
 from apscheduler.schedulers.background import BackgroundScheduler  # type: ignore
+from internal import deps, schemas, usecases
 from sqlalchemy.orm import Session
-
-from app import deps, schemas, usecases
 
 
 class Scheduler:

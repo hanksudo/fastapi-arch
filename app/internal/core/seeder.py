@@ -1,6 +1,5 @@
+from internal import models
 from sqlalchemy.orm import Session
-
-from app import models
 
 
 class Seeder:

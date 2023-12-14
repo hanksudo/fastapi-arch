@@ -1,6 +1,5 @@
+from internal import cruds, models
 from sqlalchemy.orm import Session
-
-from app import cruds, models
 
 
 def get_robot(db: Session, id: int) -> models.Robot | None:
