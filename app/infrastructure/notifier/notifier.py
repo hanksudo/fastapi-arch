@@ -7,7 +7,7 @@ class Notifier:
     def __init__(self):
         self.webSocketManager = WebSocketManager()
 
-    async def send_message(self, message: str) -> None:
+    async def broadcast_message(self, message: str) -> None:
         await self.webSocketManager.broadcast(message)
 
     async def connect(self, websocket: WebSocket) -> None:
