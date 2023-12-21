@@ -20,7 +20,7 @@ class Scheduler:
 
         scheduler._eventloop = asyncio.get_event_loop()
         scheduler.add_job(self._run, "interval", seconds=10)  # type: ignore
-        scheduler.add_job(self._send_message, "interval", seconds=1, executor="asyncio")  # type: ignore
+        scheduler.add_job(self._send_message, "interval", seconds=3, executor="asyncio")  # type: ignore
         scheduler.start()  # type: ignore
 
     def _run(self):
@@ -31,4 +31,4 @@ class Scheduler:
             print(schemas.RobotResponse.model_validate(robot))
 
     async def _send_message(self):
-        await deps.notifier.send_message("test")
+        await deps.notifier.broadcast_message("test from scheduler")

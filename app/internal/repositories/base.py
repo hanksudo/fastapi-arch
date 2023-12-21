@@ -9,11 +9,9 @@ CreateSchemaType = TypeVar("CreateSchemaType", bound=BaseModel)
 UpdateSchemaType = TypeVar("UpdateSchemaType", bound=BaseModel)
 
 
-class BaseCRUD(Generic[ModelType, CreateSchemaType, UpdateSchemaType]):
+class BaseRepository(Generic[ModelType, CreateSchemaType, UpdateSchemaType]):
     def __init__(self, model: type[ModelType]):
         """
-        CRUD object with default methods to Create, Read, Update, Delete (CRUD).
-
         **Parameters**
 
         * `model`: A SQLAlchemy model class
