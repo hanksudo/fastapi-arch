@@ -21,6 +21,9 @@ class BaseRepository(Generic[ModelType, CreateSchemaType, UpdateSchemaType]):
 
     def get(self, db: Session, id: Any) -> ModelType | None:
         return db.query(self.model).get(id)
+    
+    def get_all(self, db: Session) -> list[ModelType]:
+        return db.query(self.model).all()
 
     def create(self, db: Session, *, obj_in: CreateSchemaType) -> ModelType:
         obj_in_data = jsonable_encoder(obj_in)
