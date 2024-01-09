@@ -3,9 +3,11 @@ import asyncio
 from apscheduler.executors.asyncio import AsyncIOExecutor  # type: ignore
 from apscheduler.executors.pool import ThreadPoolExecutor  # type: ignore
 from apscheduler.schedulers.background import BackgroundScheduler  # type: ignore
-from internal import deps, schemas, usecases
+from app.internal.deps import provider, notifier
 from sqlalchemy.orm import Session
+from logging import getLogger
 
+logger = getLogger("uvicorn.app")
 
 class Scheduler:
     def __init__(self, db: Session):
@@ -24,11 +26,9 @@ class Scheduler:
         scheduler.start()  # type: ignore
 
     def _run(self):
-        print("Scheduler running...")
-        robot = usecases.robot.get_robot(self.db, 1)
-        if robot:
-            print(robot.id)
-            print(schemas.RobotResponse.model_validate(robot))
+        robot = provider.NewRobotUseCase().get_robot(1)
+        if robot is not None:
+            logger.info(f"Scheduler (10s): {robot.id}")
 
     async def _send_message(self):
-        await deps.notifier.broadcast_message("test from scheduler")
+        await notifier.broadcast_message("test from scheduler")

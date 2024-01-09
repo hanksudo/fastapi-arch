@@ -1,7 +1,8 @@
-from internal import models
+from app.internal import models
 from sqlalchemy.orm import Session
+from logging import getLogger
 
-
+logger = getLogger("uvicorn.app")
 class Seeder:
     db: Session
 
@@ -13,7 +14,7 @@ class Seeder:
 
     def seed(self) -> None:
         if self.is_seeded():
-            print("skip seed")
+            logger.info("Seeder: skip")
             return
 
         self.db.add(models.Robot(name="R2D2"))

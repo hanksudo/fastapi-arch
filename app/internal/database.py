@@ -1,11 +1,11 @@
 from collections.abc import Generator
 from contextlib import contextmanager
-import logging
+from logging import getLogger
 
 from sqlalchemy import create_engine
 from sqlalchemy.orm import DeclarativeBase, Session, scoped_session, sessionmaker
 
-logger = logging.getLogger(__name__)
+logger = getLogger("uvicorn.app")
 
 class Base(DeclarativeBase):
     pass
@@ -25,8 +25,9 @@ class DatabaseManager:
         session = self._session_factory()
         try:
             yield session
-        except Exception:
+        except Exception as e:
             session.rollback()
-            raise
+            logger.error(f"sqlalchemy error: {e}")
+            # raise
         finally:
             session.close()
