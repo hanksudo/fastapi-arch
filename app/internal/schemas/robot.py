@@ -13,5 +13,4 @@ class RobotCreate(BaseModel):
 
 
 class RobotUpdate(BaseModel):
-    id: int
     name: str

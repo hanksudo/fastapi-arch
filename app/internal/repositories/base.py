@@ -27,7 +27,7 @@ class BaseRepository(Generic[ModelType, CreateSchemaType, UpdateSchemaType]):
         with self.session_factory() as session:
             return session.query(self.model).get(id)
     
-    def list_all(self, session: Session) -> list[ModelType]:
+    def list_all(self) -> list[ModelType]:
         with self.session_factory() as session:
             return session.query(self.model).all()
 

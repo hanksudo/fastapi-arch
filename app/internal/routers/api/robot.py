@@ -1,13 +1,48 @@
-from fastapi import APIRouter, HTTPException
-from internal import deps, schemas, usecases
+import json
+from fastapi import APIRouter, Depends, Response
+from app.internal import schemas
+from app.internal.usecases import RobotUseCase
+from app.internal.deps import provider
 
 router = APIRouter()
 
-
 @router.get("/{robot_id}", response_model=schemas.RobotResponse)
-async def get_robot(robot_id: int, db: deps.DatabaseDep) -> schemas.RobotResponse:
-    robot = usecases.get_robot(db, id=robot_id)  # type: ignore
+async def get_robot( 
+    robot_id: int,
+    usecase: RobotUseCase = Depends(provider.NewRobotUseCase)
+) -> schemas.RobotResponse | Response:
+    robot = usecase.get_robot(robot_id)
     if robot is None:
-        raise HTTPException(status_code=404, detail="Robot not found")
+        return Response(status_code=404, content=json.dumps({"message": "robot not found"}))
 
     return robot  # type: ignore
+
+@router.get("", response_model=list[schemas.RobotResponse])
+async def list_robots(usecase: RobotUseCase = Depends(provider.NewRobotUseCase)) -> list[schemas.RobotResponse]:
+    return usecase.list_robots()  # type: ignore
+
+
+@router.post("", response_model=schemas.RobotResponse)
+async def create_robot(
+    robot: schemas.RobotCreate,
+    usecase: RobotUseCase = Depends(provider.NewRobotUseCase),
+) -> schemas.RobotResponse:
+    return usecase.create_robot(createSchema=robot)  # type: ignore
+
+
+@router.put("/{robot_id}", response_model=schemas.RobotResponse)
+async def update_robot(
+    robot_id: int, 
+    robot: schemas.RobotUpdate,
+    usecase: RobotUseCase = Depends(provider.NewRobotUseCase),
+) -> schemas.RobotResponse | Response:
+    # TODO: error handling
+    return usecase.update_robot(id=robot_id, updateSchema=robot)  # type: ignore
+
+@router.delete("/{robot_id}")
+async def delete_robot(
+    robot_id: int, 
+    usecase: RobotUseCase = Depends(provider.NewRobotUseCase),
+) -> None:
+    # TODO: error handling
+    usecase.delete_robot(id=robot_id)  # type: ignore
