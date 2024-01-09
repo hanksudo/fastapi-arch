@@ -14,7 +14,14 @@ uvicorn = { extras = ["standard"], version = "^0.25.0" }
 
 [tool.poetry.group.dev.dependencies]
 ruff = "^0.1.11"
+pytest = "^7.4.4"
+httpx = "^0.26.0"
 
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
+
+[tool.pytest.ini_options]
+minversion = "7.0"
+pythonpath = ["."]
+testpaths = ["tests"]

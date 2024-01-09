@@ -14,6 +14,9 @@ poetry install
 
 # Run server
 ./run.sh
+
+# Run test
+./test.sh
 ```
 
 ## APIs
