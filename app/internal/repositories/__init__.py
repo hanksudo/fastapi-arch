@@ -1,3 +1,3 @@
-from .robot import robot
+from .robot import RobotRepository
 
-__all__ = ["robot"]
+__all__ = ["RobotRepository"]
