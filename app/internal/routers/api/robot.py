@@ -13,7 +13,7 @@ async def get_robot(
 ) -> schemas.RobotResponse | Response:
     robot = usecase.get_robot(robot_id)
     if robot is None:
-        return Response(status_code=404, content=json.dumps({"message": "robot not found"}))
+        raise HTTPException(status_code=404, detail=json.dumps({"message": "robot not found"}))
 
     return robot  # type: ignore
 
@@ -35,11 +35,11 @@ async def update_robot(
     robot_id: int, 
     robot: schemas.RobotUpdate,
     usecase: RobotUseCase = Depends(provider.NewRobotUseCase),
-) -> schemas.RobotResponse | Response:
+) -> schemas.RobotResponse:
     try:
         return usecase.update_robot(id=robot_id, updateSchema=robot)  # type: ignore
     except Exception as e:
-        raise HTTPException(status_code=404, detail=str(e))
+        raise HTTPException(status_code=404, detail=json.dumps({"message": str(e)}))
 
 @router.delete("/{robot_id}")
 async def delete_robot(
@@ -47,6 +47,6 @@ async def delete_robot(
     usecase: RobotUseCase = Depends(provider.NewRobotUseCase),
 ) -> None:
     try:
-        usecase.delete_robot(id=robot_id)  # type: ignore
+        usecase.delete_robot(id=robot_id)
     except Exception as e:
-        raise HTTPException(status_code=404, detail=str(e))
+        raise HTTPException(status_code=404, detail=json.dumps({"message": str(e)}))
