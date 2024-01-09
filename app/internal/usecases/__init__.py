@@ -1,5 +1,5 @@
-from .robot import get_robot
+from .robot import RobotUseCase
 
 __all__ = [
-    "get_robot",
+    "RobotUseCase",
 ]
