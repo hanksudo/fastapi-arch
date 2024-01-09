@@ -1,5 +1,5 @@
 from fastapi import APIRouter, WebSocket
-from app.internal.deps import notifier
+from app.deps import notifier
 
 router = APIRouter()
 

@@ -2,7 +2,7 @@ import json
 from fastapi import APIRouter, Depends, Response, HTTPException
 from app.internal import schemas
 from app.internal.usecases import RobotUseCase
-from app.internal.deps import provider
+from app.deps import provider
 
 router = APIRouter()
 

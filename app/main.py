@@ -4,7 +4,7 @@ from fastapi import FastAPI
 from app.internal import routers
 from app.internal.core.scheduler import Scheduler
 from app.internal.core.seeder import Seeder
-from app.internal.deps import databaseManager
+from app.deps import databaseManager
 
 
 @asynccontextmanager

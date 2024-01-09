@@ -1,10 +1,10 @@
 from contextlib import AbstractContextManager
 from typing import Callable
 
-from app.internal.database import DatabaseManager
 from app.infrastructure.notifier import Notifier
 
 from app.internal.core import config
+from app.internal.database import DatabaseManager
 from app.internal.usecases import RobotUseCase
 from app.internal.repositories import RobotRepository
 from app.internal.models import Robot
