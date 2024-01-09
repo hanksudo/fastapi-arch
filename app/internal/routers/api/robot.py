@@ -1,5 +1,5 @@
 import json
-from fastapi import APIRouter, Depends, Response
+from fastapi import APIRouter, Depends, Response, HTTPException
 from app.internal import schemas
 from app.internal.usecases import RobotUseCase
 from app.internal.deps import provider
@@ -36,13 +36,17 @@ async def update_robot(
     robot: schemas.RobotUpdate,
     usecase: RobotUseCase = Depends(provider.NewRobotUseCase),
 ) -> schemas.RobotResponse | Response:
-    # TODO: error handling
-    return usecase.update_robot(id=robot_id, updateSchema=robot)  # type: ignore
+    try:
+        return usecase.update_robot(id=robot_id, updateSchema=robot)  # type: ignore
+    except Exception as e:
+        raise HTTPException(status_code=404, detail=str(e))
 
 @router.delete("/{robot_id}")
 async def delete_robot(
     robot_id: int, 
     usecase: RobotUseCase = Depends(provider.NewRobotUseCase),
 ) -> None:
-    # TODO: error handling
-    usecase.delete_robot(id=robot_id)  # type: ignore
+    try:
+        usecase.delete_robot(id=robot_id)  # type: ignore
+    except Exception as e:
+        raise HTTPException(status_code=404, detail=str(e))
