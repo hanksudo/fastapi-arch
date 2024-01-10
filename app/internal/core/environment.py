@@ -1,6 +1,6 @@
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
-class Config(BaseSettings):
+class Environment(BaseSettings):
     model_config = SettingsConfigDict(env_file=".env", env_file_encoding="utf-8", case_sensitive=True)
 
     DB_USER: str = ""
@@ -13,4 +13,4 @@ class Config(BaseSettings):
     def DATABASE_URL(self) -> str:
         return f"mysql://{self.DB_USER}:{self.DB_PASSWORD}@{self.DB_HOST}:{self.DB_PORT}/{self.DB_DATABASE}"
 
-config = Config()
+environment = Environment()

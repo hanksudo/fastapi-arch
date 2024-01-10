@@ -4,7 +4,7 @@ from typing import Callable
 from app.infrastructure.database import DatabaseManager
 from app.infrastructure.notifier import Notifier
 
-from app.internal.core.config import config
+from app.internal.core.environment import environment
 from app.internal.usecases import RobotUseCase
 from app.internal.repositories import RobotRepository
 from app.internal.models import Robot
@@ -19,6 +19,6 @@ class Provider:
         return RobotUseCase(RobotRepository(Robot, self.session_factory))
 
 
-databaseManager = DatabaseManager(config.DATABASE_URL)
+databaseManager = DatabaseManager(environment.DATABASE_URL)
 provider = Provider(databaseManager.session)
 notifier = Notifier()
