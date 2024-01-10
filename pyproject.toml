@@ -11,6 +11,8 @@ fastapi = "^0.105.0"
 sqlalchemy = "^2.0.25"
 apscheduler = "^3.10.4"
 uvicorn = { extras = ["standard"], version = "^0.25.0" }
+mysqlclient = "^2.2.1"
+pydantic-settings = "^2.1.0"
 
 [tool.poetry.group.dev.dependencies]
 ruff = "^0.1.11"

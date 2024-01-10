@@ -1,6 +1,6 @@
 from datetime import datetime
 from sqlalchemy import Integer
-from sqlalchemy.dialects.sqlite import TIMESTAMP as Timestamp
+from sqlalchemy.dialects.mysql import TIMESTAMP as Timestamp
 from sqlalchemy.orm import Mapped, mapped_column
 from sqlalchemy.sql import func
 from app.infrastructure.database import Base

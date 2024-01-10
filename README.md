@@ -12,6 +12,16 @@
 pipx install poetry
 poetry install
 
+# Start MariaDB
+docker run --detach \
+    --name fastapi-arch-db \
+    --env MARIADB_USER=user \
+    --env MARIADB_PASSWORD=password \
+    --env MARIADB_DATABASE=my_db \
+    --env MARIADB_ROOT_PASSWORD=root-pw \
+    --publish 23306:3306 \
+    mariadb:latest
+
 # Run server
 ./run.sh
 

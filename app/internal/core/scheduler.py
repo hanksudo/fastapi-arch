@@ -3,7 +3,7 @@ import asyncio
 from apscheduler.executors.asyncio import AsyncIOExecutor  # type: ignore
 from apscheduler.executors.pool import ThreadPoolExecutor  # type: ignore
 from apscheduler.schedulers.background import BackgroundScheduler  # type: ignore
-from app.deps import provider, notifier
+from app.deps import notifier, provider
 from sqlalchemy.orm import Session
 from logging import getLogger
 
