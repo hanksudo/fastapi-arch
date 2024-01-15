@@ -3,7 +3,7 @@ import asyncio
 from apscheduler.executors.asyncio import AsyncIOExecutor  # type: ignore
 from apscheduler.executors.pool import ThreadPoolExecutor  # type: ignore
 from apscheduler.schedulers.background import BackgroundScheduler  # type: ignore
-from app.deps import notifier, provider
+from app import deps
 from sqlalchemy.orm import Session
 from logging import getLogger
 
@@ -26,9 +26,9 @@ class Scheduler:
         scheduler.start()  # type: ignore
 
     def _run(self):
-        robot = provider.NewRobotUseCase().get_robot(1)
+        robot = deps.provider.NewRobotUseCase().get_robot(1)
         if robot is not None:
             logger.info(f"Scheduler (10s): {robot.id}")
 
     async def _send_message(self):
-        await notifier.broadcast_message("test from scheduler")
+        await deps.notifier.broadcast_message("test from scheduler")

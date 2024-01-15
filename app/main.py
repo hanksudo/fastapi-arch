@@ -2,8 +2,8 @@ from contextlib import asynccontextmanager
 
 from fastapi import FastAPI
 from app.internal import routers
-from app.internal.core.scheduler import Scheduler
-from app.internal.core.seeder import Seeder
+from app.internal.core import Scheduler
+from app.internal.core import Seeder
 from app.deps import databaseManager
 
 

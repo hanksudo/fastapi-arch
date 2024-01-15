@@ -4,7 +4,7 @@ from typing import Callable
 from app.infrastructure.database import DatabaseManager
 from app.infrastructure.notifier import Notifier
 
-from app.internal.core.environment import environment
+from app.internal.core import environment
 from app.internal.usecases import RobotUseCase
 from app.internal.repositories import RobotRepository
 from app.internal.models import Robot
