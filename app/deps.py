@@ -1,5 +1,5 @@
 from contextlib import AbstractContextManager
-from typing import Callable
+from collections.abc import Callable
 
 from app.infrastructure.database import DatabaseManager
 from app.infrastructure.notifier import Notifier

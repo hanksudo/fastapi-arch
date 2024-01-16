@@ -1,6 +1,7 @@
 from contextlib import AbstractContextManager
 
-from typing import Any, Generic, TypeVar, Callable
+from typing import Any, Generic, TypeVar
+from collections.abc import Callable
 
 from fastapi.encoders import jsonable_encoder
 from pydantic import BaseModel
