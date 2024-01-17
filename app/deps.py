@@ -11,14 +11,21 @@ from app.internal.models import Robot
 
 from sqlalchemy.orm import Session
 
-class Provider:
-    def __init__(self, session_factory: Callable[..., AbstractContextManager[Session]]):
+class DatabaseProvider:
+    def __init__(self, *, session_factory: Callable[..., AbstractContextManager[Session]]) -> None:
         self.session_factory = session_factory
 
+    def NewRobotRepository(self) -> RobotRepository:
+        return RobotRepository(Robot, self.session_factory)
+
+class UsecaseProvider:
+    def __init__(self, database_provider: DatabaseProvider):
+        self.database_provider = database_provider
+
     def NewRobotUseCase(self) -> RobotUseCase:
-        return RobotUseCase(RobotRepository(Robot, self.session_factory))
+        return RobotUseCase(self.database_provider.NewRobotRepository())
 
 
 databaseManager = DatabaseManager(environment.DATABASE_URL)
-provider = Provider(databaseManager.session)
+usecase_provider = UsecaseProvider(DatabaseProvider(session_factory=databaseManager.session))
 notifier = Notifier()

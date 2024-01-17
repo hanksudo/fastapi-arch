@@ -26,7 +26,7 @@ class Scheduler:
         scheduler.start()  # type: ignore
 
     def _run(self):
-        robot = deps.provider.NewRobotUseCase().get_robot(1)
+        robot = deps.usecase_provider.NewRobotUseCase().get_robot(1)
         if robot is not None:
             logger.info(f"Scheduler (10s): {robot.id}")
 

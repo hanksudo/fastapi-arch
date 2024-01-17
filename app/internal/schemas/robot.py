@@ -12,5 +12,5 @@ class RobotCreate(BaseModel):
     name: str
 
 
-class RobotUpdate(BaseModel):
-    name: str
+class RobotUpdate(RobotCreate):
+    ...
