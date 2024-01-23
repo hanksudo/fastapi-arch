@@ -18,7 +18,7 @@ class DatabaseProvider:
     def NewRobotRepository(self) -> RobotRepository:
         return RobotRepository(Robot, self.session_factory)
 
-class UsecaseProvider:
+class UseCaseProvider:
     def __init__(self, database_provider: DatabaseProvider):
         self.database_provider = database_provider
 
@@ -27,5 +27,5 @@ class UsecaseProvider:
 
 
 databaseManager = DatabaseManager(environment.DATABASE_URL)
-usecase_provider = UsecaseProvider(DatabaseProvider(session_factory=databaseManager.session))
+usecase_provider = UseCaseProvider(DatabaseProvider(session_factory=databaseManager.session))
 notifier = Notifier()
